@@ -3,14 +3,13 @@ const path = require("path");
 const dotenv = require("dotenv");
 
 const mongoose = require("mongoose");
-const movieRoute = require("./routes/movieRouter");
+const movieRoute = require("./routes/movieRoutes");
 dotenv.config();
 const app = express();
 
 const port = process.env.PORT || 3000;
 
 app.use(express.json());
-app.use("/static", express.static(path.join(__dirname, "../frontend")));
 
 console.log(process.env.MONGODB_URL);
 
@@ -24,7 +23,6 @@ app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "../frontend/index.html"));
 });
 
-app.use("/static", express.static(path.join(__dirname, "../frontend")));
 app.use("/api/movies", movieRoute);
 
 app.listen(port, () => {
